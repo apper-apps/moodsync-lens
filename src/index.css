@@ -212,3 +212,99 @@ body {
     background-position: 200% 0;
   }
 }
+
+/* Drawing Tools Styles */
+.drawing-tool-active {
+  background: linear-gradient(135deg, #5B4CFF 0%, #4ECDC4 100%);
+  color: white;
+}
+
+.drawing-tool-inactive {
+  background: rgba(255, 255, 255, 0.9);
+  color: #6B7280;
+  transition: all 0.2s ease-out;
+}
+
+.drawing-tool-inactive:hover {
+  background: rgba(91, 76, 255, 0.1);
+  color: #5B4CFF;
+}
+
+.brush-panel {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.brush-size-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  border-radius: 5px;
+  background: #e2e8f0;
+  outline: none;
+  transition: all 0.2s ease-out;
+}
+
+.brush-size-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5B4CFF 0%, #4ECDC4 100%);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(91, 76, 255, 0.3);
+  transition: all 0.2s ease-out;
+}
+
+.brush-size-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(91, 76, 255, 0.4);
+}
+
+.brush-size-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5B4CFF 0%, #4ECDC4 100%);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(91, 76, 255, 0.3);
+}
+
+.brush-style-button {
+  transition: all 0.2s ease-out;
+  border: 1px solid #e2e8f0;
+}
+
+.brush-style-button.active {
+  background: linear-gradient(135deg, #5B4CFF 0%, #4ECDC4 100%);
+  color: white;
+  border-color: #5B4CFF;
+}
+
+.brush-style-button:hover:not(.active) {
+  background: rgba(91, 76, 255, 0.1);
+  border-color: #5B4CFF;
+}
+
+.color-preset {
+  transition: all 0.2s ease-out;
+  border: 2px solid transparent;
+}
+
+.color-preset.active {
+  border-color: #5B4CFF;
+  transform: scale(1.1);
+}
+
+.color-preset:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.drawing-path {
+  pointer-events: none;
+}

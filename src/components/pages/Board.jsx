@@ -19,10 +19,15 @@ const Board = () => {
   const { images, loading: imagesLoading, error: imagesError, loadImages, addImage, updateImage, deleteImage } = useImages(boardId);
   const { currentUser, cursors, broadcastCursor } = useCollaboration(boardId);
   
-  const [selectedImages, setSelectedImages] = useState([]);
+const [selectedImages, setSelectedImages] = useState([]);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [showColorSidebar, setShowColorSidebar] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
+  const [drawingMode, setDrawingMode] = useState(false);
+  const [currentTool, setCurrentTool] = useState('pen');
+  const [brushSize, setBrushSize] = useState(3);
+  const [brushStyle, setBrushStyle] = useState('solid');
+  const [brushColor, setBrushColor] = useState('#5B4CFF');
 
   const loading = boardLoading || imagesLoading;
   const error = boardError || imagesError;
@@ -107,6 +112,26 @@ const Board = () => {
 
   const handleInvite = () => {
     setShowShareModal(true);
+};
+
+  const handleDrawingModeToggle = (enabled) => {
+    setDrawingMode(enabled);
+  };
+
+  const handleToolChange = (tool) => {
+    setCurrentTool(tool);
+  };
+
+  const handleBrushSizeChange = (size) => {
+    setBrushSize(size);
+  };
+
+  const handleBrushStyleChange = (style) => {
+    setBrushStyle(style);
+  };
+
+  const handleBrushColorChange = (color) => {
+    setBrushColor(color);
   };
 
   if (loading) return <Loading />;
@@ -122,7 +147,7 @@ const Board = () => {
       />
 
       {/* Main Canvas */}
-      <Canvas
+<Canvas
         images={images}
         onImageAdd={handleImageAdd}
         onImageUpdate={handleImageUpdate}
@@ -134,10 +159,15 @@ const Board = () => {
         selectedImages={selectedImages}
         zoomLevel={zoomLevel}
         onZoomChange={setZoomLevel}
+        drawingMode={drawingMode}
+        currentTool={currentTool}
+        brushSize={brushSize}
+        brushStyle={brushStyle}
+        brushColor={brushColor}
       />
 
       {/* Floating Toolbar */}
-      <FloatingToolbar
+<FloatingToolbar
         onUpload={handleUpload}
         onZoomIn={handleZoomIn}
         onZoomOut={handleZoomOut}
@@ -146,6 +176,16 @@ const Board = () => {
         selectedCount={selectedImages.length}
         onDeleteSelected={handleDeleteSelected}
         zoomLevel={zoomLevel}
+        drawingMode={drawingMode}
+        onDrawingModeToggle={handleDrawingModeToggle}
+        currentTool={currentTool}
+        onToolChange={handleToolChange}
+        brushSize={brushSize}
+        onBrushSizeChange={handleBrushSizeChange}
+        brushStyle={brushStyle}
+        onBrushStyleChange={handleBrushStyleChange}
+        brushColor={brushColor}
+        onBrushColorChange={handleBrushColorChange}
       />
 
       {/* Color Sidebar */}

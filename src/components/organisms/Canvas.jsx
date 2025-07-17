@@ -18,13 +18,21 @@ const Canvas = ({
   onImageSelect,
   selectedImages = [],
   zoomLevel = 1,
-  onZoomChange
+  onZoomChange,
+  drawingMode = false,
+  currentTool = 'pen',
+  brushSize = 3,
+  brushStyle = 'solid',
+  brushColor = '#5B4CFF'
 }) => {
-  const [draggedImage, setDraggedImage] = useState(null);
+const [draggedImage, setDraggedImage] = useState(null);
   const [selectionBox, setSelectionBox] = useState(null);
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
   const [isPanning, setIsPanning] = useState(false);
   const [panStart, setPanStart] = useState({ x: 0, y: 0 });
+  const [drawingPaths, setDrawingPaths] = useState([]);
+  const [currentPath, setCurrentPath] = useState(null);
+  const [isDrawing, setIsDrawing] = useState(false);
   const canvasRef = useRef(null);
 
   // Handle mouse movement for cursor tracking
@@ -164,9 +172,52 @@ const Canvas = ({
     setIsPanning(false);
   };
 
+const startDrawing = (e) => {
+    if (!drawingMode) return;
+    
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left - panOffset.x) / zoomLevel;
+    const y = (e.clientY - rect.top - panOffset.y) / zoomLevel;
+    
+    const newPath = {
+      id: Date.now(),
+      tool: currentTool,
+      size: brushSize,
+      style: brushStyle,
+      color: brushColor,
+      points: [{ x, y }]
+    };
+    
+    setCurrentPath(newPath);
+    setIsDrawing(true);
+  };
+
+  const continueDrawing = (e) => {
+    if (!isDrawing || !currentPath) return;
+    
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left - panOffset.x) / zoomLevel;
+    const y = (e.clientY - rect.top - panOffset.y) / zoomLevel;
+    
+    setCurrentPath(prev => ({
+      ...prev,
+      points: [...prev.points, { x, y }]
+    }));
+  };
+
+  const finishDrawing = () => {
+    if (isDrawing && currentPath) {
+      setDrawingPaths(prev => [...prev, currentPath]);
+      setCurrentPath(null);
+      setIsDrawing(false);
+    }
+  };
+
   const handleMouseDown = (e) => {
     if (e.button === 0) { // Left click
-      if (e.shiftKey) {
+      if (drawingMode) {
+        startDrawing(e);
+      } else if (e.shiftKey) {
         handleSelectionStart(e);
       } else {
         handlePanStart(e);
@@ -175,13 +226,21 @@ const Canvas = ({
   };
 
   const handleMouseMove = (e) => {
-    handleSelectionMove(e);
-    handlePanMove(e);
+    if (drawingMode) {
+      continueDrawing(e);
+    } else {
+      handleSelectionMove(e);
+      handlePanMove(e);
+    }
   };
 
   const handleMouseUp = () => {
-    handleSelectionEnd();
-    handlePanEnd();
+    if (drawingMode) {
+      finishDrawing();
+    } else {
+      handleSelectionEnd();
+      handlePanEnd();
+    }
   };
 
   if (images.length === 0) {
@@ -198,10 +257,12 @@ const Canvas = ({
     );
   }
 
-  return (
+return (
     <div 
       ref={canvasRef}
-      className="canvas-container h-screen w-full relative cursor-crosshair select-none"
+      className={`canvas-container h-screen w-full relative select-none ${
+        drawingMode ? 'cursor-crosshair' : 'cursor-crosshair'
+      }`}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -234,7 +295,44 @@ const Canvas = ({
             />
           ))}
         </AnimatePresence>
-      </div>
+</div>
+
+      {/* Drawing Layer */}
+      <svg
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          transform: `translate(${panOffset.x}px, ${panOffset.y}px)`
+        }}
+      >
+        {/* Completed paths */}
+        {drawingPaths.map((path) => (
+          <path
+            key={path.id}
+            d={`M ${path.points.map(p => `${p.x},${p.y}`).join(' L ')}`}
+            stroke={path.color}
+            strokeWidth={path.size}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+            opacity={path.style === 'pencil' ? 0.7 : 1}
+            strokeDasharray={path.style === 'brush' ? '0' : path.style === 'pencil' ? '2,2' : '0'}
+          />
+        ))}
+        
+        {/* Current drawing path */}
+        {currentPath && (
+          <path
+            d={`M ${currentPath.points.map(p => `${p.x},${p.y}`).join(' L ')}`}
+            stroke={currentPath.color}
+            strokeWidth={currentPath.size}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+            opacity={currentPath.style === 'pencil' ? 0.7 : 1}
+            strokeDasharray={currentPath.style === 'brush' ? '0' : currentPath.style === 'pencil' ? '2,2' : '0'}
+          />
+        )}
+      </svg>
 
       {/* Selection Box */}
       {selectionBox && (
