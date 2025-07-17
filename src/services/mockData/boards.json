@@ -1,0 +1,47 @@
+[
+  {
+    "Id": 1,
+    "name": "Fashion Spring 2024",
+    "createdAt": "2024-01-15T10:00:00Z",
+    "shareUrl": "https://moodsync.app/board/fs24-abc123",
+    "activeUsers": [
+      {
+        "id": "user1",
+        "name": "Sarah Chen",
+        "color": "#FF6B6B",
+        "cursor": { "x": 0, "y": 0 },
+        "lastActive": "2024-01-15T10:30:00Z"
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "name": "Brand Identity Workshop",
+    "createdAt": "2024-01-14T14:30:00Z",
+    "shareUrl": "https://moodsync.app/board/brand-def456",
+    "activeUsers": [
+      {
+        "id": "user2",
+        "name": "Mike Johnson",
+        "color": "#4ECDC4",
+        "cursor": { "x": 0, "y": 0 },
+        "lastActive": "2024-01-14T15:00:00Z"
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "name": "Website Redesign Inspiration",
+    "createdAt": "2024-01-13T09:15:00Z",
+    "shareUrl": "https://moodsync.app/board/web-ghi789",
+    "activeUsers": [
+      {
+        "id": "user3",
+        "name": "Emma Davis",
+        "color": "#5B4CFF",
+        "cursor": { "x": 0, "y": 0 },
+        "lastActive": "2024-01-13T16:45:00Z"
+      }
+    ]
+  }
+]

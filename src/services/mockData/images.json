@@ -1,0 +1,68 @@
+[
+  {
+    "Id": 1,
+    "url": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop",
+    "position": { "x": 100, "y": 150 },
+    "size": { "width": 280, "height": 200 },
+    "rotation": 0,
+    "zIndex": 1,
+    "uploadedBy": "user1",
+    "boardId": 1,
+    "colors": ["#8B4513", "#F4A460", "#2F4F4F", "#696969"]
+  },
+  {
+    "Id": 2,
+    "url": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=300&fit=crop",
+    "position": { "x": 420, "y": 180 },
+    "size": { "width": 260, "height": 180 },
+    "rotation": -5,
+    "zIndex": 2,
+    "uploadedBy": "user1",
+    "boardId": 1,
+    "colors": ["#FFB6C1", "#FF69B4", "#DC143C", "#B22222"]
+  },
+  {
+    "Id": 3,
+    "url": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=300&fit=crop",
+    "position": { "x": 720, "y": 120 },
+    "size": { "width": 300, "height": 220 },
+    "rotation": 3,
+    "zIndex": 3,
+    "uploadedBy": "user1",
+    "boardId": 1,
+    "colors": ["#FF6347", "#FF4500", "#FFA500", "#FFD700"]
+  },
+  {
+    "Id": 4,
+    "url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop",
+    "position": { "x": 200, "y": 400 },
+    "size": { "width": 320, "height": 240 },
+    "rotation": 0,
+    "zIndex": 4,
+    "uploadedBy": "user2",
+    "boardId": 2,
+    "colors": ["#000080", "#4169E1", "#87CEEB", "#F0F8FF"]
+  },
+  {
+    "Id": 5,
+    "url": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
+    "position": { "x": 580, "y": 350 },
+    "size": { "width": 280, "height": 200 },
+    "rotation": -8,
+    "zIndex": 5,
+    "uploadedBy": "user2",
+    "boardId": 2,
+    "colors": ["#228B22", "#32CD32", "#7CFC00", "#ADFF2F"]
+  },
+  {
+    "Id": 6,
+    "url": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+    "position": { "x": 150, "y": 200 },
+    "size": { "width": 350, "height": 250 },
+    "rotation": 2,
+    "zIndex": 6,
+    "uploadedBy": "user3",
+    "boardId": 3,
+    "colors": ["#FF1493", "#FF69B4", "#FFB6C1", "#FFC0CB"]
+  }
+]
